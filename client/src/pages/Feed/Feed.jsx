@@ -14,7 +14,7 @@ const MainContainer = styled.div`
   display: flex;
   min-height: 100vh;
   width: 92%;
-  margin: 4rem auto 2rem auto; 
+  margin: 4rem auto 2rem; 
 
   @media ${device.laptop}{ 
     width: 100%;

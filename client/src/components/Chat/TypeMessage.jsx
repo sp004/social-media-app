@@ -95,7 +95,7 @@ const SendIcon = styled(BiSend)`
 
 const TypeMessage = ({currentUser, msgRef}) => {
     const [emojiClicked, setEmojiClicked] = useState(false)
-    const [typingTimeout, setTypingTimeout] = useState(null)
+    // const [typingTimeout, setTypingTimeout] = useState(null)
 
     const {conversation, setChats, chats} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
@@ -161,7 +161,6 @@ const TypeMessage = ({currentUser, msgRef}) => {
                 message,
                 createdAt: Date.now()
             })
-            // console.log("conversation id inside type: " + conversation._id)
             // console.log(data.data)   
             setChats([...chats, data?.data]);
         } catch (error) {
@@ -171,7 +170,7 @@ const TypeMessage = ({currentUser, msgRef}) => {
 
         msgRef.current.value = ''
     }
-
+console.log(conversation)
   return (
     <TypeSection>
         {!currentUser?.isVerified 

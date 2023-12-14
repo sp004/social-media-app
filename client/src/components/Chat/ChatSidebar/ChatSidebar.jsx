@@ -114,7 +114,6 @@ const ChatSidebar = () => {
 
   //fetch all conversations
   useEffect(() => {
-    console.log("calling fetch all conversations =============================")
     const getAllConversations = async () => {
       // setLoading(true)
       try {

@@ -10,7 +10,7 @@ import Meta from '../../components/Meta'
 const ChatContainer = styled.section`
   display: flex;
   /* height: 100%; */
-  margin: 4rem auto 2rem auto;
+  margin: 4rem auto 0;
 `
 
 const Chat = () => {
