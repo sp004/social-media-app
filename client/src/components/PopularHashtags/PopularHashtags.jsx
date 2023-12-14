@@ -10,7 +10,6 @@ const PopularHashtags = () => {
 
   const fetchTopHashtags = async () => {
     const {data} = await axiosPrivate.get('/post/topHashtags')
-    // console.log("🧧🧧", data?.data)
     return data?.data?.sort((a, b) => b?.number - a?.number)
   }
 

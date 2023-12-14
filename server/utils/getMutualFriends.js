@@ -6,12 +6,12 @@ export const getMutualFriends = asyncHandler(async(req, userId) => {
     const otherUser = await Friend.findOne({userId}).select("friends")
 
     // console.log("log", loggedInUser)
-    // console.log("otehr", otherUser)
+    // console.log(otherUser)
 
     const commonFriends = loggedInUser.friends.filter(friend => 
         otherUser.friends.some(friend2 => friend2._id.equals(friend._id))
     );
 
-    // console.log("common ===>", commonFriends)
+    // console.log("common", commonFriends)
     return commonFriends
 })

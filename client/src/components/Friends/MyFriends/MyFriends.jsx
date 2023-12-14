@@ -7,7 +7,6 @@ import Unfriend from '../../FriendButtons/Unfriend'
 import Block from '../../FriendButtons/Block'
 import { useNavigate } from 'react-router-dom'
 
-
 const MyFriends = () => {
   const {friends} = useSelector(state => state.friend)
   const dispatch = useDispatch()

@@ -20,7 +20,6 @@ const OtherInfo = ({user, isMyProfile, posts}) => {
     const onChatClicked = useChat()
     const {allConversations} = useContext(ChatContext)
     const {friends} = useSelector(state => state.friend)
-    console.log("😋😋😋", allConversations)
 
     // const totalFriends = isMyProfile ? friends?.length : user?.friends?.length
 

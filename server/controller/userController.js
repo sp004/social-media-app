@@ -22,7 +22,7 @@ export const getUserProfile = asyncHandler(async(req, res, next) => {
 
     //get friends of the user
     const friends = await Friend.find({userId: user._id}).populate("friends").select("friends")
-    console.log("🌳🌳🌳", friends)
+    // console.log(friends)
     const status = await checkFriendshipStatus(req, user?._id)
     const mutualFriends = await getMutualFriends(req, user?._id)
     const isBlocked = await checkIsBlocked(req, user?._id)
@@ -113,14 +113,13 @@ export const deactivateUser = asyncHandler(async(req, res, next) => {
 //delete user profile
 export const deleteUser = asyncHandler(async(req, res, next) => {
     const {id} = req.user
-    const user = await User.findById(id)
+    await User.findById(id)
 
     //delete all comments posted by the user
     await Post.updateMany(
         {"comments.userId": id}, 
         {$pull: {comments: {userId: id}}}
     )
-    console.log("🤢🤢")
         
         // Remove user ID from likedUserIds array
     await Post.updateMany(
@@ -128,7 +127,6 @@ export const deleteUser = asyncHandler(async(req, res, next) => {
         { $pull: { likedUserIds: id } }
     );
             
-    console.log("🥰🥰")
     // Remove user ID from sharedBy array
     // await Post.updateMany(
     //     { sharedBy: {$in: [id]} },
@@ -137,11 +135,9 @@ export const deleteUser = asyncHandler(async(req, res, next) => {
 
     //delete the posts of the user
     await Post.deleteMany({userId: id})
-    console.log("😎😎")
     
     //delete the bookmarks by User
     await Bookmark.deleteOne({userId: id}).exec()
-    console.log("🤩🤩")
     
     //remove user id from all the arrays inside Friends collection
     await Friend.updateMany(
@@ -163,15 +159,12 @@ export const deleteUser = asyncHandler(async(req, res, next) => {
         },
         { multi: true } // Set multi option to true to update multiple documents
     )
-    console.log("😥😥")
-        
+
     //delete userId from Friends collection
     await Friend.findOneAndDelete({userId: id});
-    console.log("🤯🤯")
         
     // Delete the user
     await User.deleteOne({_id: id});
-    console.log("😮😮")
         
     res.status(200).json({status: "Success", message: `Account is deleted`})
 })

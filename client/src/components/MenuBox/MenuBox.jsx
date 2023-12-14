@@ -51,8 +51,6 @@ const Menu = styled(Link)`
 
 const MenuBox = ({setOpenMenuBox, username}) => {
     const dispatch = useDispatch()
-    const {socket} = useContext(SocketContext)
-    const {currentUser} = useSelector(state => state.auth)
 
     const logoutHandler = async () => {
       setOpenMenuBox(false)
@@ -74,12 +72,6 @@ const MenuBox = ({setOpenMenuBox, username}) => {
           ]
         })
       };
-      
-      // useEffect(() => {
-      //   if(!currentUser?._id){
-      //     socket?.emit("disconnect")
-      //   }
-      // }, [currentUser])
 
     const closeMenuBox = () => {
       setOpenMenuBox(false)

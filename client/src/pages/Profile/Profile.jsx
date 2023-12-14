@@ -10,7 +10,7 @@ import { axiosPrivate } from "../../api/apiRequest";
 import { useQuery } from "@tanstack/react-query";
 
 const Profile = () => {
-  document.title = 'MeetChat - Profile'
+  document.title = 'MeetFrends - Profile'
   const dispatch = useDispatch()
   
   const username = useLocation().pathname.split("/")[2];
@@ -84,4 +84,3 @@ const Profile = () => {
 };
 
 export default Profile;
-// currentUser={auth?.currentUser?.username === username ? auth?.currentUser : user}

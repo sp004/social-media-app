@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import {BiSearchAlt} from 'react-icons/bi'
 import {GrFormClose} from 'react-icons/gr'
-import { NavLink, useNavigate } from 'react-router-dom';
-import { flexBetween, flexCenter, flexCol, style } from '../../styles/variables';
+import { useNavigate } from 'react-router-dom';
+import { flexBetween, flexCenter, style } from '../../styles/variables';
 import { Avatar } from '../CreatePost/styles';
 import { device } from '../../styles/responsive';
 
@@ -11,10 +11,6 @@ const SearchBarContainer = styled.div`
   height: 70%;
   height: 40px;
   position: relative;
-  /* top: 3%;
-  left: 50%;
-  transform: translateX(-50%); */
-  /* width: 350px; */
   flex: 0.7;
   overflow: hidden;
   background-color: ${({theme}) => theme.bgTertiary};
@@ -84,17 +80,6 @@ const SearchForm = styled.form`
   ${flexBetween}
 `
 
-// const ResultContainer = styled.div`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   height: 300px;
-//   background-color: #fff;
-//   border-radius: 6px;
-//   box-shadow: 0px 2px 12px 3px rgba(0, 0, 0, 0.14);
-// `
-
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -121,10 +106,6 @@ const SuggestionContainer = styled.div`
   ::-webkit-scrollbar{
     display: none;
   }
-
-  
-  /* additional styles for animation */
-  /* add your desired animation styles here */
 `;
 
 const SearchList = styled.li`
@@ -145,18 +126,15 @@ const SearchHashtag = styled.sub`
 `
 
 const Searchbar = ({users}) => {
-  const searchRef = useRef()
   const [query, setQuery] = useState('')
   const [suggestions, setSuggestions] = useState([]);
   const [expandContainer, setExpandContainer] = useState(false)
   const navigate = useNavigate()
 
   const updateSuggestions = (inputValue) => {
-    console.log(inputValue)
+    // console.log(inputValue)
     const filteredUsers = users?.filter(user => user?.fullname?.toLowerCase()?.includes(inputValue?.toLowerCase()));
-    console.log("*******", filteredUsers)
     setSuggestions([...filteredUsers]);
-    console.log("+++", suggestions)
   };
 
   const searchHandler = (e) => {
@@ -175,7 +153,7 @@ const Searchbar = ({users}) => {
     setSuggestions([])
   }
 
-  console.log(suggestions)
+  // console.log(suggestions)
   
   return (
     <SearchBarContainer>

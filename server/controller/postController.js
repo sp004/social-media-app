@@ -50,7 +50,7 @@ export const getAllPosts = asyncHandler(async (req, res, next) => {
 
 //get all posts of an user
 export const getUserPost = asyncHandler(async (req, res, next) => {
-    console.log("userId --> ", req?.params?.userId)
+    // console.log(req?.params?.userId)
     if(!req?.params?.userId) return
     const posts = await Post.find({userId: req?.params?.userId}).sort({createdAt: -1}).populate("userId", "fullname username profilePic").populate("taggedUsers", "fullname username profilePic").populate({
         path: 'comments.userId',
@@ -85,7 +85,7 @@ export const getPost = asyncHandler(async (req, res, next) => {
     const postUser = await Post.findById(req.params?.postId, 'userId')
     const blockedUsers = await Friend.findOne({ userId: postUser?.userId }).select("blockedUsers");
     const blockedUserIds = blockedUsers?.blockedUsers?.map((user) => user.toString());
-    console.log("🥗", blockedUserIds)
+    // console.log(blockedUserIds)
 
     const post = await Post.findById(req.params?.postId).populate("userId", "fullname username profilePic").populate("taggedUsers", "fullname username profilePic").populate({
         path: 'comments.userId',
@@ -99,7 +99,7 @@ export const getPost = asyncHandler(async (req, res, next) => {
           blockedUsers: blockedUserIds
         }
       };
-    console.log("🤠", postWithBlockedUsers)
+    console.log(postWithBlockedUsers)
     res.status(200).json({data: postWithBlockedUsers})
 })
 
@@ -152,7 +152,7 @@ export const getTaggedPost = asyncHandler(async (req, res, next) => {
 //edit post
 export const updatePost = asyncHandler(async (req, res, next) => {
     const {postId} = req.params
-    console.log(req?.body)
+    // console.log(req?.body)
     const updatedPost = await Post.findByIdAndUpdate(postId, 
         {$set: {
             ...req.body,
@@ -178,7 +178,7 @@ export const likePost = asyncHandler(async(req, res, next) => {
     // if(!post.likedUserIds.includes(id)){
         await post.updateOne({$push: {likedUserIds: id}})
     // }
-console.log("liked")
+
     res.status(200).json({message: 'Liked'})
 })
 
@@ -200,7 +200,7 @@ export const removeLike = asyncHandler(async(req, res, next) => {
 
 //delete post
 export const deletePost = asyncHandler(async (req, res, next) => {
-    console.log(req.params?.postId)
+    // console.log(req.params?.postId)
     const post = await Post.findById(req.params?.postId)
     if(!post) return next(ErrorHandler(404, 'Post not found'))
 
@@ -212,28 +212,3 @@ export const deletePost = asyncHandler(async (req, res, next) => {
     //     {$pull: {userId: id}}
     // )
 })
-
-
-// const arr = [
-//     {
-//         id: 1,
-//         name: 'John',
-//         tags: ['as', 'rt', 'op']
-//     },
-//     {
-//         id: 2,
-//         name: 'Jon',
-//         tags: ['as', 'qw', 'yu']
-//     },
-//     {
-//         id: 3,
-//         name: 'Joe',
-//         tags: ['kl', 'rt', 'yu']
-//     },
-//     {
-//         id: 4,
-//         name: 'Johnny',
-//         tags: ['cv', 'qw', 'nm']
-//     },
-// ]
-

@@ -5,7 +5,7 @@ import { Button, Input, Form, FormContainer } from "./styles";
 import { Link, NavLink } from "react-router-dom";
 
 const ForgetPassword = () => {
-  document.title = 'MeetChat - Forget Password'
+  document.title = 'MeetFrends - Forget Password'
   const {
     register,
     handleSubmit,

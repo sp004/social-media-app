@@ -2,15 +2,13 @@ import asyncHandler from "express-async-handler";
 import User from "../model/User.js";
 import { ErrorHandler } from "./ErrorHandler.js";
 import jwt from 'jsonwebtoken'
-import util from 'util';
 
 //whether the user is signed in or not
-export const verifyJWT = async (req, res, next) => {
-  // console.log(req.headers)
+export const verifyJWT = async (req, _, next) => {
   const authHeader = req.headers?.authorization;
-  // console.log("ah => ", authHeader)
+  // console.log(authHeader)
   try {
-      if (authHeader?.startsWith('Bearer ')){
+    if (authHeader?.startsWith('Bearer ')){
       const token = authHeader.split(' ')[1];
     
       jwt.verify(

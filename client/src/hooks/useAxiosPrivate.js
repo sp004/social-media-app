@@ -5,13 +5,13 @@ import useRefreshToken from './useRefreshToken'
 
 const useAxiosPrivate = () => {
     const {currentUser} = useSelector(state => state?.auth)
-    console.log("user", currentUser)
+    // console.log("user", currentUser)
     const refresh = useRefreshToken()
 
     useEffect(() => {
         const requestInterceptor = axiosPrivate.interceptors.request.use(
             config => {
-                console.log(config)
+                // console.log(config)
                 if(!config?.headers['Authorization']){
                     config.headers['Authorization'] = `Bearer ${currentUser?.accessToken}`
                 }
@@ -22,13 +22,13 @@ const useAxiosPrivate = () => {
         const responseInterceptor = axiosPrivate.interceptors.response.use(
             response => response,
             async (error) => {
-                console.log(error) //accessToken has expired, please login
+                // console.log(error) //accessToken has expired, please login
                 const prevRequest = error?.config
-                console.log(prevRequest?.sent, "--", error?.response?.status)
+                // console.log(prevRequest?.sent, "--", error?.response?.status)
                 if(error?.response?.status === 403 && !prevRequest?.sent){
                     prevRequest.sent = true
                     const newAccessToken = await refresh()
-                    console.log("nAt:", newAccessToken)
+                    // console.log( newAccessToken)
                     prevRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
                     return axiosPrivate(prevRequest)
                 }

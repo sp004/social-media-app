@@ -22,57 +22,21 @@ const MainContainer = styled.div`
 `
 
 const Feed = () => {
-  // <Meta title='MeetChat - Feed' content={'This is the feed page of the application'} />
-  // <Helmet>
-  //     <title>Feed</title>
-  //     <meta name='description' content='hi bro' />
-  //   </Helmet>
-  document.title = 'MeetChat - Feed'
-  const {currentUser} = useSelector(state => state.auth)
+  document.title = 'MeetFrends - Feed'
   const dispatch = useDispatch()
   const {verificationToken} = useParams()
-  console.log(currentUser)
+  // console.log(currentUser)
 
-  // useEffect(() => {
-  //   if(!currentUser?.isVerified){
-  //     console.log("2")
-  //     dispatch(sendVerificationEmail())
-  //   }
-    // else{
-    //   dispatch(getProfile())
-    // }
-  // }, [currentUser])
-  
-
-  const verifyUserHandler = async () => {
-    console.log("3")
-    await dispatch(sendVerificationEmail())
-  }
+  // const verifyUserHandler = async () => {
+  //   await dispatch(sendVerificationEmail())
+  // }
 
   return (
     <>
-      {/* {currentUser?.isVerified 
-      ?
-      <>
-        <Navbar />
-        <MainContainer>
-          <Posts />
-          <FeedRight />
-        </MainContainer>
-      </>
-      : 
-      <>
-        <Verify>
-          <h2>Please verify</h2>
-          <button onClick={verifyUserHandler}>Send Verification Link</button>
-        </Verify>
-      </>} */}
-
       <MainContainer>
         <Posts />
         <FeedRight />
       </MainContainer>
-
     </>
   )
 }

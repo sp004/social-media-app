@@ -7,12 +7,12 @@ import Message from "../model/Message.js";
 export const createConversation = asyncHandler(async(req, res, next) => {
     const senderId = req?.body?.senderId
     const receiverId = req?.body?.receiverId
-console.log("conversation ===> ", receiverId, senderId)
+
     //check if conversation with the same receiver already exists or not
     const existingConversation = await Conversation.findOne({
         users: {$all: [senderId, receiverId]}
     })
-    // console.log("exis ==> ", existingConversation)
+    // console.log(existingConversation)
     if(existingConversation) return 
 
     const newConversation = await Conversation.create({
@@ -30,7 +30,7 @@ export const fetchConversations = asyncHandler(async(req, res, next) => {
     }).populate("users", "-password -refreshToken")
     .populate("lastMessage")
     .sort({updatedAt: -1})
-    console.log("👱‍♀️", allConversations)
+    // console.log(allConversations)
     
     res.status(200).json({data: allConversations})
 })
@@ -41,7 +41,6 @@ export const removeEmptyConversation = asyncHandler(async(req, res, next) => {
     const {conversationId} = req.params
 // console.log(conversationId)
     const conversation = await Message.find({conversationId})
-    // console.log("***********", conversation)
     const emptyConversation = !conversation.length && await Conversation.findByIdAndDelete(conversationId)
 // console.log(emptyConversation)
     res.status(200).json({data: emptyConversation, message: 'Conversation deleted successfully'})

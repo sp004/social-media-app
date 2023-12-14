@@ -81,7 +81,7 @@ export const WritePost = styled.textarea`
 export const PreviewImage = styled.img`
     width: 300px;
     height: 300px;
-    object-fit: cover;
+    object-fit: contain;
 `
 
 export const ImageUpload = styled.div`

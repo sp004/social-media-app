@@ -18,7 +18,7 @@ const NotFundWrapper = styled.section`
 `
 
 const NotFound = () => {
-    document.title = 'MeetChat - Page Not Found'
+    document.title = 'MeetFrends - Page Not Found'
     const navigate = useNavigate()
 
   return (

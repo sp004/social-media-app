@@ -48,11 +48,11 @@ export const sendVerificationEmail = asyncHandler((async (req, res, next) => {
 
     //create verification token
     const verificationToken = crypto.randomBytes(32).toString('hex') + user._id
-    console.log("vT", verificationToken)
+    // console.log(verificationToken)
     
     //hash the verification token before saving
     const hashedToken = hashToken(verificationToken)
-    console.log("hT", hashedToken)
+    // console.log(hashedToken)
 
     //save the verification token with other details
     await new Token({

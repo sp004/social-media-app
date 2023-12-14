@@ -83,7 +83,7 @@ const Button = styled.button`
 `;
 
 const AccountSettings = ({ currentUser }) => {
-  document.title = 'MeetChat - Settings'
+  document.title = 'MeetFrends - Settings'
   const dispatch = useDispatch()
   const navigate = useNavigate()
   // const {currentUser} = useSelector(state => state.auth)

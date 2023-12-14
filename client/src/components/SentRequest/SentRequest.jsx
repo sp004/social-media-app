@@ -33,34 +33,6 @@ const Friends = styled.div`
   margin-top: 10px;
 `
 
-// const Friend = styled.div`
-//   width: 100%;
-//   ${flexBetween}
-//   padding: 1rem 0;
-
-//   :not(:last-child){
-//     border-bottom: 1px solid grey;
-//   }
-// `
-
-// const FriendInfo = styled.div`
-//   ${flexCenter}
-//   gap: 6px;
-//   cursor: pointer;
-// `
-
-// const FriendAvatar = styled.img`
-//   width: 40px;
-//   height: 40px;
-//   border-radius: 50%;
-//   object-fit: cover;
-// `
-
-// const FriendStatusButton = styled.button`
-//   ${borderedButton};
-//   font-size: 12px;
-// `
-
 const SentRequest = () => {
   const dispatch = useDispatch()
   const {friendRequestsSent} = useSelector(state => state.friend)
@@ -69,7 +41,6 @@ const SentRequest = () => {
   useEffect(() => {
     dispatch(fetchSentFriendRequests())
   }, [])
-  console.log("***", friendRequestsSent)
 
   return (
     <ReqSentWrapper>

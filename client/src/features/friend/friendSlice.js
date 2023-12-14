@@ -16,7 +16,7 @@ export const fetchFriends = createAsyncThunk("friend/fetchFriends", async (_, th
     try {
         return await getFriends()
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return thunkApi.rejectWithValue(error?.response?.data?.message)
     }
 })
@@ -26,7 +26,7 @@ export const fetchSentFriendRequests = createAsyncThunk("friend/fetchSentFriendR
     try {
         return await fetchSentRequests()
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return thunkApi.rejectWithValue(error?.response?.data?.message)
     }
 })
@@ -36,21 +36,10 @@ export const fetchReceivedRequests = createAsyncThunk("friend/fetchReceivedReque
     try {
         return await requestsReceived()
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return thunkApi.rejectWithValue(error?.response?.data?.message)
     }
 })
-
-//get mutual friends
-// export const fetchMutualFriends = createAsyncThunk("friend/fetchMutualFriends", async (userId, thunkApi) => {
-//     try {
-//         return await getMutualFriends(userId)
-//     } catch (error) {
-//         console.log(error)
-//         return thunkApi.rejectWithValue(error?.response?.data?.message)
-//     }
-// })
-
 
 const friendSlice = createSlice({
   name: 'friend',
@@ -72,14 +61,14 @@ const friendSlice = createSlice({
             state.isLoading = true
         })
         .addCase(fetchFriends.fulfilled, (state, {payload}) => {
-            console.log(payload.data)
+            // console.log(payload.data)
             state.isLoading = false 
             state.isSuccess = true
             state.friends = payload.data
             state.message = payload.message
         })
         .addCase(fetchFriends.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload
@@ -90,14 +79,14 @@ const friendSlice = createSlice({
             state.isLoading = true
         })
         .addCase(fetchSentFriendRequests.fulfilled, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = true
             state.friendRequestsSent = payload.data
             state.message = payload.message
         })
         .addCase(fetchSentFriendRequests.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload
@@ -108,14 +97,14 @@ const friendSlice = createSlice({
             state.isLoading = true
         })
         .addCase(fetchReceivedRequests.fulfilled, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = true
             state.friendRequestsReceived = payload.data
             state.message = payload.message
         })
         .addCase(fetchReceivedRequests.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload

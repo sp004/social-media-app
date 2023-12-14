@@ -100,7 +100,7 @@ const TypeMessage = ({currentUser, msgRef}) => {
     const {conversation, setChats, chats} = useContext(ChatContext)
     const {socket} = useContext(SocketContext)
     const emojiRef = useRef()
-// console.log("+++++++", conversation)
+
     const handleClickOutside = (event) => {
         if (emojiRef.current && !emojiRef.current.contains(event.target)) {
             setEmojiClicked(false);
@@ -161,17 +161,17 @@ const TypeMessage = ({currentUser, msgRef}) => {
                 message,
                 createdAt: Date.now()
             })
-            console.log("conversation id inside type: " + conversation._id)
-            console.log(data.data)   
+            // console.log("conversation id inside type: " + conversation._id)
+            // console.log(data.data)   
             setChats([...chats, data?.data]);
         } catch (error) {
-            console.log(error)
-            console.log('Something went wrong, please send message later')
+            console.error(error)
+            // console.log('Something went wrong, please send message later')
         }
 
         msgRef.current.value = ''
     }
-console.log("🤶", conversation)
+
   return (
     <TypeSection>
         {!currentUser?.isVerified 

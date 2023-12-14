@@ -20,9 +20,8 @@ const VerifyButton = styled.button`
 `
 
 const VerifyUser = () => {
-  document.title = 'MeetChat - Verify User'
+  document.title = 'MeetFrends - Verify User'
   const [status, setStatus] = useState(false)
-  const [error, setError] = useState('')
 
   const { verificationToken } = useParams();
   const {message, isSuccess} = useSelector(state => state.auth)
@@ -31,16 +30,6 @@ const VerifyUser = () => {
 
   const verifyUserHandler = async () => {
     await dispatch(userVerification(verificationToken))
-    // try {
-    //   const res = await axiosPrivate.patch(`/auth/verify/${verificationToken}`);
-    //   console.log(res.data);
-    //   setStatus(true)
-    //   setTimeout(() => {
-    //     navigate('/feed', {replace: true})
-    //   }, 3000);
-    // } catch (error) {
-    //   setError(error?.response?.data?.message)
-    // }
   };
 
   useEffect(() => {

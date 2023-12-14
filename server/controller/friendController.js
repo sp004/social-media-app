@@ -6,9 +6,9 @@ import { getMutualFriends } from "../utils/getMutualFriends.js";
 import { checkIsBlocked } from "../utils/checkIsBlocked.js";
 // import { checkFriendshipStatus } from "../utils/checkStatus.js";
 
-//* sent friend request
-//* before sending request we need to check if the sender is already present in receiver's friendReqSent list ie receiver has already sent friend request 
-//when sender sends friend req to receiver, then receiver will be added to sender's friendReqSent list and sender will be added to receiver's friendReqReceived list
+// sent friend request
+// before sending request we need to check if the sender is already present in receiver's friendReqSent list ie receiver has already sent friend request 
+// when sender sends friend req to receiver, then receiver will be added to sender's friendReqSent list and sender will be added to receiver's friendReqReceived list
 export const sendRequest = asyncHandler(async(req, res, next) => {
     const {id} = req.user
     const {userId} = req.body
@@ -16,22 +16,21 @@ export const sendRequest = asyncHandler(async(req, res, next) => {
     const isAlreadySent = await Friend.find({userId: id, 
         friendReqSent: { $in: [userId] }
     });
-    console.log("sent", isAlreadySent)
+    // console.log("sent", isAlreadySent)
     if(isAlreadySent.length) return next(ErrorHandler(400, 'Request already sent'))
 
     const isAlreadyBlocked = await Friend.findOne({userId: id,
         blockedUsers: { $in: [userId] }
     });
-    console.log("isAlreadyBlocked", isAlreadyBlocked)
+    // console.log("isAlreadyBlocked", isAlreadyBlocked)
     if(isAlreadyBlocked) return next(ErrorHandler(400, 'Already blocked'))
 
-    //add receiver's id to sender's friendReqSent list 
+    // add receiver's id to sender's friendReqSent list 
     // const test = await Friend.findOneAndUpdate(id)
     const sender = await Friend.findOneAndUpdate({userId: id}, 
         {$push: {friendReqSent: userId}},
         {new: true, runValidators: true}
     )
-    // console.log(test)
     if(!sender) return next(ErrorHandler(404, "Something went wrong"))
     
     //add sender's id to receiver's friendReqReceived list 
@@ -45,7 +44,7 @@ export const sendRequest = asyncHandler(async(req, res, next) => {
     res.status(200).json({message: "Friend request sent"})
 })
 
-//* withdraw friend request
+// withdraw friend request
 export const withdrawRequest = asyncHandler(async(req, res, next) => {
     const {userId} = req.body
     const {id} = req.user
@@ -72,7 +71,7 @@ export const withdrawRequest = asyncHandler(async(req, res, next) => {
     res.status(200).json({message: "Friend request withdrawn"})
 })
 
-//* unfriend
+// unfriend
 ///user is already in friends list and needs to be removed from there
 export const unfriend = asyncHandler(async(req, res, next) => {
     const {id} = req.user
@@ -98,8 +97,8 @@ export const unfriend = asyncHandler(async(req, res, next) => {
     res.status(200).json({message: "Both of you aren't friends anymore"})
 })
 
-//* accept friend request
-//when the receiver accepts the req, it will be added to sender's friends list and also removed from sender's friendReqSent list and receiver's friendReqReceived list
+// accept friend request
+// when the receiver accepts the req, it will be added to sender's friends list and also removed from sender's friendReqSent list and receiver's friendReqReceived list
 export const acceptRequest = asyncHandler(async(req, res, next) => {
     const {id} = req.user
     const {userId} = req.body
@@ -107,7 +106,7 @@ export const acceptRequest = asyncHandler(async(req, res, next) => {
     const isAlreadyAccepted = await Friend.findOne({userId: id,
         friends: { $in: [userId] }
     });
-    console.log("acepedd", isAlreadyAccepted)
+    // console.log("aceped", isAlreadyAccepted)
     if(isAlreadyAccepted) return next(ErrorHandler(400, 'Already accepted'))
 
     const isAlreadyRejected = await Friend.findOne({userId: id,
@@ -135,8 +134,8 @@ export const acceptRequest = asyncHandler(async(req, res, next) => {
     res.status(200).json({message: "Friend request accepted"})
 })
 
-//* reject friend request
-//when the receiver rejects the req, it will be added to sender's friends list and also removed from sender's friendReqSent list and receiver's friendReqReceived list
+// reject friend request
+// when the receiver rejects the req, it will be added to sender's friends list and also removed from sender's friendReqSent list and receiver's friendReqReceived list
 export const rejectRequest = asyncHandler(async(req, res, next) => {
     const {userId} = req.body
     const {id} = req.user
@@ -144,15 +143,14 @@ export const rejectRequest = asyncHandler(async(req, res, next) => {
     const isAlreadyFriend = await Friend.findOne({userId: id,
         friends: { $in: [userId] }
     });
-    console.log("isAlreadyFriend", isAlreadyFriend)
+    // console.log("isAlreadyFriend", isAlreadyFriend)
     if(isAlreadyFriend) return next(ErrorHandler(400, 'You both are already friend'))
     
     const isAlreadyRejected = await Friend.findOne({userId: id,
         friendReqReceived: { $in: [userId] }
     });
-    console.log("isAlreadyRejected", isAlreadyRejected)
+    // console.log("isAlreadyRejected", isAlreadyRejected)
     if(!isAlreadyRejected) return next(ErrorHandler(400, 'Already rejected'))
-
 
     //remove receiver's id from sender's friendReqReceived list 
     const rejectUser = await Friend.findOneAndUpdate({userId: id}, 
@@ -170,7 +168,7 @@ export const rejectRequest = asyncHandler(async(req, res, next) => {
     res.status(200).json({message: "Friend request rejected"})
 })
 
-//* block a friend
+// block a friend
 export const blockUser = asyncHandler(async(req, res, next) => {
     const {userId} = req.body
     const {id} = req.user
@@ -178,13 +176,13 @@ export const blockUser = asyncHandler(async(req, res, next) => {
     const isAlreadySent = await Friend.find({userId: id, 
         friendReqSent: { $in: [userId] }
     });
-    console.log("sent", isAlreadySent)
+    // console.log("sent", isAlreadySent)
     if(isAlreadySent.length) return next(ErrorHandler(400, 'Request already sent'))
 
     const isAlreadyBlocked = await Friend.findOne({userId: id,
         blockedUsers: { $in: [userId] }
     });
-    console.log("isAlreadyBlocked", isAlreadyBlocked)
+    // console.log("isAlreadyBlocked", isAlreadyBlocked)
     if(isAlreadyBlocked) return next(ErrorHandler(400, 'Already blocked'))
 
     const blockedUser = await Friend.findOneAndUpdate({userId: id}, 
@@ -196,7 +194,7 @@ export const blockUser = asyncHandler(async(req, res, next) => {
     res.status(200).json({message: "User is blocked"})
 })
 
-//* unblock a friend
+// unblock a friend
 export const unblockUser = asyncHandler(async(req, res, next) => {
     const {userId} = req.body
     const {id} = req.user
@@ -216,7 +214,7 @@ export const unblockUser = asyncHandler(async(req, res, next) => {
 })
 
 
-//* get all friends => unfriend, block
+// get all friends => unfriend, block
 export const getAllFriends = asyncHandler(async(req, res, next) => {
     const {friends} = await Friend.findOne({userId: req.user.id}).select(["friends", "-_id"])
     if(!friends) return next(ErrorHandler(404, "No friends found"))
@@ -231,14 +229,13 @@ export const getAllFriends = asyncHandler(async(req, res, next) => {
             ...friends._doc
         }
     })); 
-    console.log("🎃 => ", friendsData)
+    // console.log(friendsData)
 
     res.status(200).json({data: friendsData})
 })
 
-//* get all friends to whom request has been sent => withdraw request
+// get all friends to whom request has been sent => withdraw request
 export const getReqSentUsers = asyncHandler(async(req, res, next) => {
-    // console.log(req.user)
     const {friendReqSent} = await Friend.findOne({userId: req.user.id}).select(["friendReqSent", "-_id"])
     if(!friendReqSent) return next(ErrorHandler(404, "You have not sent request to any user yet"))
 
@@ -254,7 +251,7 @@ export const getReqSentUsers = asyncHandler(async(req, res, next) => {
     res.status(200).json({data: friendsData})
 })
 
-//* get all friends who have sent request => accept, reject
+// get all friends who have sent request => accept, reject
 export const getReqReceivedUsers = asyncHandler(async(req, res, next) => {
     const {friendReqReceived} = await Friend.findOne({userId: req.user.id}).select(["friendReqReceived", "-_id"])
     if(!friendReqReceived) return next(ErrorHandler(404, "Friend requests are not received yet"))
@@ -289,7 +286,7 @@ export const getBlockedUsers = asyncHandler(async(req, res, next) => {
     res.status(200).json({data: blockedUsersData})
 })
 
-//* get all unblocked users
+// get all unblocked users
 export const getUnblockedUsers = asyncHandler(async(req, res, next) => {
     const {blockedUsers} = await Friend.findOne({userId: req.user.id}).select(["blockedUsers", "-_id"])
 
@@ -299,7 +296,7 @@ export const getUnblockedUsers = asyncHandler(async(req, res, next) => {
     const unblockedUsersData = await Promise.all(unblockedUsers?.map(async (user) => {
         const users = await User.findById(user?.userId).select("fullname profilePic username isDeactivated"); 
         const isBlocked = await checkIsBlocked(req, user?.userId)
-        // console.log("😤", users)
+        // console.log(users)
         return {
             isBlocked,
             ...users?._doc
@@ -309,7 +306,7 @@ export const getUnblockedUsers = asyncHandler(async(req, res, next) => {
     res.status(200).json({data: unblockedUsersData?.filter(Boolean)})
 })
 
-//* get all suggested users (not present in any lists) => add friend, block
+// get all suggested users (not present in any lists) => add friend, block
 export const getSuggestedUsers = asyncHandler(async(req, res, next) => {
     const {id} = req.user
 
@@ -342,7 +339,7 @@ export const getSuggestedUsers = asyncHandler(async(req, res, next) => {
     res.status(200).json({data: suggestedUsersInfo?.filter(user => !user.isBlocked)})
 })
 
-//* get all suggested users (not present in any lists) => add friend, block
+// get all suggested users (not present in any lists) => add friend, block
 // export const getMutualFriends = asyncHandler(async(req, res, next) => {
 //     const {id} = req.user;
 //     const {userId} = req.params
@@ -355,7 +352,7 @@ export const getSuggestedUsers = asyncHandler(async(req, res, next) => {
 //     );
 // })
 
-//* get relations b/w 2 users
+// get relations b/w 2 users
 // export const checkFriendshipStatus = asyncHandler(async(req, res, next) => {
 //     const {id} = req.user
 //     const {userId} = req.params

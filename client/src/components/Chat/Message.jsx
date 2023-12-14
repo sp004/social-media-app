@@ -55,7 +55,7 @@ const MessageTime = styled.sub`
 `
 
 const Message = ({data}) => {
-    const {conversation} = useContext(ChatContext)
+    // const {conversation} = useContext(ChatContext)
     const {currentUser} = useSelector(state => state.auth)
 
     // let isReceived = data?.sender ? data?.sender !== currentUser._id : data?.received

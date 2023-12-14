@@ -3,7 +3,6 @@ import styled from "styled-components";
 import TypeMessage from "../TypeMessage";
 import Message from "../Message";
 import { useSelector } from "react-redux";
-import { io } from "socket.io-client";
 import { BeatLoader } from "react-spinners";
 import { ChatContext } from "../../../context/ChatContext";
 import { EmptyPlaceHolder, flexCenter } from "../../../styles/variables";
@@ -85,7 +84,7 @@ const ChatContent = () => {
   const [newMessage, setNewMessage] = useState(null);
   const [typing, setTyping] = useState(false)
   const { currentUser } = useSelector((state) => state.auth);
-  const {chats, setChats, conversation, selectedConversation, setConversation} = useContext(ChatContext)  
+  const {chats, setChats, conversation, setConversation} = useContext(ChatContext)  
   const {socket} = useContext(SocketContext)
   // const selectedConversation = conversation
   
@@ -103,31 +102,21 @@ const ChatContent = () => {
 // receive message
 useEffect(() => {
   if (!socket) return;
-  console.log("**************** Inside from receive message ************************")
 
   socket?.on("sentMessage", (newChat) => {
-    console.log("newChat ====> ", newChat)
     setNewMessage({
       conversationId: newChat.conversationId,
       sender: newChat.sender,
       message: newChat.message,
       createdAt: Date.now()
     })
-    // if (!selectedConversation?._id || selectedConversation?._id !== newChat.conversationId){
-
-    // }
   })
 }, [socket])
 
   useEffect(() => {
-    console.log("************* set chats *************")
     // newMessage && conversation?.users?.some(user => user._id === newMessage.sender) && setChats(prev => [...prev, newMessage])
     setChats(prev => [...prev, newMessage])
   }, [newMessage, conversation])
-
-  console.log("new message -------------", newMessage)
-  console.log("chats ======>", chats)
-
 
   //scroll to end of the chat window
   useEffect(() => {
@@ -147,24 +136,16 @@ useEffect(() => {
   //     console.log("users", users)
   //   })
   // }, [currentUser])
-  
-  
-  
 
   // useEffect(() => {
   //   if (!socket) return;
     
   //   const handleNewChat = (newChat) => {
-  //     console.log("selected conversation ==>", conversation)
-  //     console.log("==============", newChat)
   //     setChats(prev => [...prev, newChat])
 
   //     if (!conversation?._id || conversation?._id !== newChat.conversationId) {
-  //       console.log(newChat.conversationId, "===", conversation?._id)
-  //       console.log("*** SHOW NOTIFICATION ***")
   //     }
   //     else {
-  //       console.log("******************************")
   //       setChats(prev => [...prev, newChat])
   //     }
   //   };
@@ -174,16 +155,10 @@ useEffect(() => {
   //   socket.on("typing-stopped-server", () => setTyping(false));
 
   //   socket.on("send-from-server", (newChat) => {
-  //     console.log("==============", newChat)
   //     if(!conversation || conversation._id !== newChat.conversationId){
-  //       //give notification
-  //       console.log("+++++++++++++++++++")
   //     }else{
-  //       console.log("******************************")
   //       setChats(prev => [...prev, newChat])
   //     }
-  //     // console.log("Received................")
-  //     // setChats((prev) => [...prev, {message: data.message, received: true }]);
   //   });
 
   //   socket.on("typing-started-server", () => setTyping(true));

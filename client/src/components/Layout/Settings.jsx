@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { flexAround } from '../../styles/variables'
-import { sidebarItems } from '../../utils'
 import UserProfile from '../../components/Settings/UserProfile/UserProfile'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import AccountSettings from '../../components/Settings/AccountSettings/AccountSettings'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import SettingsSidebar from '../../components/SettingsSidebar/SettingsSidebar'
 import BlockedAccounts from '../Settings/BlockedAccounts/BlockedAccounts'
 import Bookmarks from '../Settings/Bookmarks/Bookmarks'
@@ -32,21 +31,8 @@ export const SettingsMainContent = styled.div`
 `
 
 const Settings = () => {
-    // const navigate = useNavigate()
-    // const dispatch = useDispatch()
     const path = useLocation().pathname.split('/').splice(-1)[0]
-    // const [component, setComponent] = useState(UserProfile)
     const auth = useSelector(state => state?.auth)
-
-    // const openMenuHandler = (index) => {
-    //     if(index === 2){
-    //         logoutHandler()
-    //         return
-    //     }
-    //     setComponent(sidebarItems[index].Component)
-    // }
-
-    // console.log(currentUser)
 
   return (
     <SettingsContainer>
@@ -58,10 +44,6 @@ const Settings = () => {
             {path === 'bookmarks' && <Bookmarks />}
             {path === 'tagged-posts' && <TaggedPosts />}
             {path === 'blocked-accounts' && <BlockedAccounts />}
-            {/* {component.props.children[0].props.children === 'Account Settings' ? 
-            <AccountSettings currentUser={currentUser} navigate={navigate} dispatch={dispatch} /> : 
-            <UserProfile currentUser={currentUser} />
-            } */}
         </SettingsMainContent>
     </SettingsContainer>
   )

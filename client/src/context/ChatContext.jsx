@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { axiosPrivate } from "../api/apiRequest";
 
 export const ChatContext = createContext()
 

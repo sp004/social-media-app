@@ -21,7 +21,7 @@ const TaggedPostContainer = styled.div`
 `
 
 const TaggedPosts = () => {
-    document.title = 'MeetChat - Tagged Posts';
+    document.title = 'MeetFrends - Tagged Posts';
     const [taggedPosts, setTaggedPosts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
 
@@ -30,7 +30,6 @@ const TaggedPosts = () => {
       setIsLoading(true)
       try {
         const {data} = await axiosPrivate.get(`/post/tagged`)
-        console.log("*********************+++++++++++++++++++++", data?.data)
         setTaggedPosts(data?.data)
         setIsLoading(false)
       } catch (error) {

@@ -10,21 +10,11 @@ const initialState = {
 }
 
 //get user profile
-// export const createPost = createAsyncThunk("post/createPost", async (_, thunkApi) => {
-//     try {
-//         return await createNewPost()
-//     } catch (error) {
-//         console.log(error)
-//         return thunkApi.rejectWithValue(error?.response?.data?.message)
-//     }
-// })
-
-//get user profile
 export const fetchAllPosts = createAsyncThunk("post/fetchAllPosts", async (_, thunkApi) => {
     try {
         return await getAllPosts()
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return thunkApi.rejectWithValue(error?.response?.data?.message)
     }
 })
@@ -34,7 +24,7 @@ export const fetchUserPosts = createAsyncThunk("post/fetchUserPosts", async (use
     try {
         return await getUserPosts(userId)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return thunkApi.rejectWithValue(error?.response?.data?.message)
     }
 })
@@ -52,37 +42,19 @@ const postSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        // //create new post
-        // .addCase(createPost.pending, (state) => {
-        //     state.isLoading = true
-        // })
-        // .addCase(createPost.fulfilled, (state, {payload}) => {
-        //     console.log(payload)
-        //     state.isLoading = false 
-        //     state.isSuccess = true
-        //     state.posts = payload.data
-        //     state.message = payload.message
-        // })
-        // .addCase(createPost.rejected, (state, {payload}) => {
-        //     console.log(payload)
-        //     state.isLoading = false 
-        //     state.isSuccess = false
-        //     state.message = payload
-        // })
-
         //get all posts
         .addCase(fetchAllPosts.pending, (state) => {
             state.isLoading = true
         })
         .addCase(fetchAllPosts.fulfilled, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = true
             state.posts = payload.data
             state.message = payload.message
         })
         .addCase(fetchAllPosts.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload
@@ -93,14 +65,13 @@ const postSlice = createSlice({
             state.isLoading = true
         })
         .addCase(fetchUserPosts.fulfilled, (state, {payload}) => {
-            console.log("😛", payload)
             state.isLoading = false 
             state.isSuccess = true
             state.userPosts = payload.data
             state.message = payload.message
         })
         .addCase(fetchUserPosts.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload

@@ -52,7 +52,6 @@ const Post = forwardRef(({post}, ref) => {
 
     const likeMutation = useMutation({
         mutationFn: async () => {
-            console.log("🤐liked bro.....")
           return await axiosPrivate.put(`/post/like/${post._id}`)
         },
         onSuccess: () => {
@@ -62,7 +61,6 @@ const Post = forwardRef(({post}, ref) => {
 
     const removeLikeMutation = useMutation({
         mutationFn: async () => {
-            console.log("🤐disliked bro.....")
           return await axiosPrivate.put(`/post/dislike/${post._id}`)
         },
         onSuccess: () => {

@@ -9,7 +9,6 @@ import Skeleton from "../Skeleton/Skeleton";
 
 const Posts = () => {
   const fetchAllPosts = async (page) => {
-    console.log("page number ==> " + page)
     const { data } = await axiosPrivate.get(`/post/allPosts?page=${page}`);
     return data?.data;
   };
