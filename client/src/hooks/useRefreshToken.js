@@ -10,7 +10,7 @@ const useRefreshToken = () => {
       const res = await axiosPublic.get('/auth/refresh', {
         withCredentials: true
       })
-      console.log(res.data)
+      // console.log(res.data)
       return res.data.accessToken
     } catch (error) {
       navigate('/', { state: { from: location }, replace: true });

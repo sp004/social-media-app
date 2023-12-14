@@ -63,19 +63,6 @@ const FromWrapper = styled.div`
 
 const Home = () => {
   const [loginVisible, setloginVisible] = useState(true)
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const { isSuccess, isLoading, currentUser, message } = useSelector(state => state.auth);
-
-  // console.log(loginVisible)
-
-  // useEffect(() => {
-  //   if(!isSuccess && message){
-  //     toast.error(message, {
-  //       duration: 2000
-  //     })
-  //   }
-  // }, [isSuccess, message])
 
   return (
     <Container>

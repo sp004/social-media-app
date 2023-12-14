@@ -5,7 +5,7 @@ import Post from '../../components/Post/Post'
 import styled from 'styled-components'
 import { EmptyPlaceHolder } from '../../styles/variables'
 import { device } from '../../styles/responsive'
-import Meta from '../../components/Meta'
+import { ClipLoader } from 'react-spinners'
 
 const SearchedPosts = styled.section`
   width: 80%;
@@ -33,7 +33,6 @@ const Posts = styled.div`
 `
 
 const SearchedPost = () => {
-  // <Meta title={"MeetChat - Meet & Chat with Friends"} />
   const [searchedPosts, setSearchedPosts] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [searchParams] = useSearchParams();
@@ -47,19 +46,21 @@ const SearchedPost = () => {
         const {data} = await axiosPrivate.get(`/post/postByHashtags?hashtag=${hashtag}`)
         setSearchedPosts(() => data?.data)
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
       setIsLoading(false)
     }
     fetchPostsByHashtags()
-  }, [])
+  }, [hashtag])
   
   return (
     <SearchedPosts>
         <h1>Posts with <span style={{color: '#ae35f0'}}>#{hashtag}</span></h1>
 
         {isLoading ? 
-          <p>Loading</p>
+          <EmptyPlaceHolder>
+            <ClipLoader color='#ae35f0' />
+          </EmptyPlaceHolder>
         : searchedPosts?.length > 0
           ?
             <Posts>

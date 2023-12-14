@@ -77,7 +77,7 @@ const TopBarText = styled(NavLink)`
 `
 
 const Friends = () => {
-  document.title = 'MeetChat - Friends'
+  document.title = 'MeetFrends - Friends'
   const path = useLocation().pathname.split('/').splice(-1)[0]
   const {friendRequestsReceived} = useSelector(state => state.friend)
   const dispatch = useDispatch()

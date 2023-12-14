@@ -21,7 +21,7 @@ const Icon = styled.svg`
 `
 
 const ResetPassword = () => {
-  document.title = 'MeetChat - Reset Password';
+  document.title = 'MeetFrends - Reset Password';
   const {
     register,
     handleSubmit,
@@ -45,7 +45,7 @@ const ResetPassword = () => {
   const resetPwdHandler = async ({password, confirmPassword}) => {
     try {
       const {data} = await axiosPublic.post(`/user/reset-password/${resetToken}`, {password, cPassword: confirmPassword})
-      console.log(data)
+      // console.log(data)
       setMessage(data.message)
       setTimeout(() => {
         navigate('/', {replace:true})

@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
 import { ErrorHandler } from "../middleware/ErrorHandler.js";
 import Post from "../model/Post.js";
-import User from "../model/User.js";
 
 //create comment
 export const createComment = asyncHandler(async(req, res, next) => {

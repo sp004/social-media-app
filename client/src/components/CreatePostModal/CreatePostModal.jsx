@@ -16,14 +16,14 @@ const CreatePostModal = ({openModal, formType, postToEdit}) => {
   const [post, setPost] = useState(postToEdit?.content || "")
   const [image, setImage] = useState(postToEdit?.image || "")
   const [imagePreview, setImagePreview] = useState('')
-  const [postImageLink, setPostImageLink] = useState('')
+  // const [postImageLink, setPostImageLink] = useState('')
   const [message, setMessage] = useState("")
   const [mention, setMention] = useState(postToEdit?.taggedUsers?.map(u => u.fullname) || "")
-  const [isLoading, setIsLoading] = useState(false)
+  // const [isLoading, setIsLoading] = useState(false)
   const [usersToBeTagged, setUsersToBeTagged] = useState([])
   const {unblockedUsers} = useSelector(state => state.user)
   const {currentUser} = useSelector(state => state.auth)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const queryClient = useQueryClient();
 
@@ -72,22 +72,21 @@ const CreatePostModal = ({openModal, formType, postToEdit}) => {
     }
   }, [image])
 
-  console.log("image", image)
+  // console.log("image", image)
 
   //upload post image to Firebase
   const uploadToFirebase = async () => {
     try {
       const storageRef = ref(storage, 'images/' + image?.name);
-      console.log("storageRef", storageRef)
+      // console.log("storageRef", storageRef)
       const snapshot = await uploadBytes(storageRef, image)
       setPostImage(await getDownloadURL(snapshot.ref))
 
-      console.log('Image uploaded successfully!');
+      // console.log('Image uploaded successfully!');
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
-  console.log("----------------->", postImage)
 
   // Mutations
   const mutation = useMutation({
@@ -148,8 +147,7 @@ const CreatePostModal = ({openModal, formType, postToEdit}) => {
       openModal(false)
     }, 2000);
   }
-console.log("🎇🎇🎇", usersToBeTagged)
-console.log("🎇", unblockedUsers)
+
   return (
     <>
       <Modal>
@@ -211,5 +209,3 @@ console.log("🎇", unblockedUsers)
 }
 
 export default CreatePostModal
-
-// (/[^(]+(?=\))/g)

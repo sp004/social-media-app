@@ -8,10 +8,10 @@ const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([])
   const [notifications, setNotifications] = useState([])
-  const {currentUser} = useSelector(state => state.auth)
+  // const {currentUser} = useSelector(state => state.auth)
 
   useEffect(() => {
-    console.log("connecting to socket...");
+    // console.log("connecting to socket...");
     setSocket(io(import.meta.env.VITE_APP_SOCKET_URL));
   }, []);
 

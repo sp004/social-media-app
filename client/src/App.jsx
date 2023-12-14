@@ -44,76 +44,45 @@ const App = () => {
   // const socket = useRef()
   const [openMenuBox, setOpenMenuBox] = useState(false)
   const {setConversation, conversation, allConversations, setAllConversations} = useContext(ChatContext)
-  const {socket, setOnlineUsers, onlineUsers} = useContext(SocketContext)
+  const {socket, setOnlineUsers} = useContext(SocketContext)
   const {darkMode} = useContext(ThemeContext)
   const {pathname} = useLocation()
-// console.log(socket)
 
   useEffect(() => {
-    console.log("...........calling setup from client")
+    // console.log("...........calling setup from client")
     socket?.emit("setup", {id: currentUser?._id, fullname: currentUser?.fullname})
     socket?.on("online", (users) => {
       users = users?.filter(user => user?.userId !== currentUser?._id)
       setOnlineUsers(unblockedUsers?.filter(u => !u.isBlocked)?.filter(user => users?.some(u => u?.userId === user?._id)))
-      console.log("👮‍♀️👮‍♀️👮‍♀️", users, onlineUsers)
+      // console.log(users, onlineUsers)
     })
   }, [socket, currentUser])
-  
-  // useEffect(() => {
-  // }, [socket])
-  
-  
-  console.log("***** Online users ===>", onlineUsers)
-  // useEffect(() => {
-  //   if(isLoggedIn){
-  //     dispatch(getMyProfile(currentUser?.username))
-  //   }
-  // }, [isLoggedIn])
 
   //logout when error code is 403
   useEffect(() => {
     if(message?.startsWith('Invalid token') || msg?.startsWith('Invalid token') && isLoggedIn){
-      console.log("hii")
       dispatch(logout())
       dispatch(reset())
       dispatch(resetFriends())
     }
   }, [message, msg, dispatch])
 
-  //logout when token becomes invalid
-  // useEffect(() => {
-  //   if(!accessToken && message === 'Logout successful') {
-  //     console.log("5")
-  //     navigate('/', {replace: true})
-  //   }
-  // }, [accessToken, message])
-
   useEffect(() => {
     axiosPrivate.defaults.headers.common['Authorization'] = `Bearer ${accessToken ? accessToken : ''}`;
   }, [accessToken])
-
   
   //setting conversation state to empty object when page changes
   useEffect(() => {
     if(pathname.split('/')[1] !== 'chat'){
-      console.log("removing conversation...............")
       conversation?._id && setConversation({})
       //remove the conversation having empty message
       const newConversation = allConversations?.filter(conversation => conversation?.lastMessage === undefined)
-      console.log("😫😫😫 ===>", newConversation)
       newConversation?.length && 
         axiosPrivate.delete(`/conversation/${newConversation[0]?._id}`)
         .then(res => setAllConversations(allConversations.filter(conversation => conversation._id !== res?.data?.data?._id)))
         .catch(err => console.log("Something went wrong!!!"))
     }
   }, [pathname])
-
-  // useEffect(() => {
-  //   const remove = async (conversationId) => {
-  //     const {data} = await axiosPrivate.delete(`/conversation/${conversationId}`)
-  //     console.log("deleted 😂😂 ==>", data)
-  //   }
-  // }, [])
   
   return (
     <QueryClientProvider client={queryClient}>
@@ -143,9 +112,7 @@ const App = () => {
               <Route path='blocked-accounts' element={<Settings />} />
             </Route>
             <Route path='shared-post/:postId' element={<Suspense fallback={<ClipLoader />}><SharedPost /></Suspense>} />
-    
           </Route>
-
           <Route path='*' element={<Suspense fallback={<ClipLoader />}><NotFound /></Suspense>} />
         </Routes>
       </ThemeProvider>

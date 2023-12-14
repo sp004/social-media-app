@@ -59,7 +59,7 @@ const NotificationCard = styled.div`
 `
 
 const Notification = () => {
-  document.title = 'MeetChat - Notification'
+  document.title = 'MeetFrends - Notification'
   const {notifications} = useContext(SocketContext)
   let content = ''
 

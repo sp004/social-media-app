@@ -121,11 +121,9 @@ export const loginUser = asyncHandler(async(req, res, next) => {
     res.status(200).json({user: {...other}, accessToken, message: "Login successful"})
 })
 
-//* logout
+// logout
 export const logoutUser = asyncHandler(async(req, res, next) => {
     const {token} = req.cookies;
-    // console.log("req--", req.cookies)
-    // console.log("token", token)
     if (!token) return next(ErrorHandler(204, 'Your session has ended, please login again')); //No content
     const refreshToken = token;
 
@@ -150,7 +148,7 @@ export const handleRefreshToken = async (req, res, next) => {
     const cookies = req.cookies;
     if (!cookies?.token) return res.status(204).json({message: 'No token found'}); //No content
     const refreshToken = cookies.token;
-    console.log("rT",cookies)
+    // console.log(cookies)
 
     //with rT, check if the token is present in DB. If yes then retrieve the user
     const foundUser = await User.findOne({ refreshToken }).exec();

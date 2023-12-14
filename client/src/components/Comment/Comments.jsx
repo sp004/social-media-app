@@ -107,7 +107,7 @@ const Content = styled.div`
 const Comments = ({comments, post}) => {
     const [comment, setComment] = useState('')
     // const [allComments, setAllComments] = useState([])
-    const [currentEmoji, setCurrentEmoji] = useState('')
+    // const [currentEmoji, setCurrentEmoji] = useState('')
     const [emojiClicked, setEmojiClicked] = useState(false)
     const emojiRef = useRef()
     const {currentUser} = useSelector(state => state.auth)

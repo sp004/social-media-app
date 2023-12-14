@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { fetchReceivedRequests } from "../../../features/friend/friendSlice";
 import { ButtonDiv, Friend, FriendAvatar, FriendDetails, FriendInfo, FriendsDiv } from "../styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -15,26 +14,18 @@ const FriendRequest = () => {
   const {friendRequestsReceived} = useSelector(state => state.friend)
   const navigate = useNavigate()
 
-  // useEffect(() => {
-  //   dispatch(fetchReceivedRequests())
-  // }, [])
-
   useEffect(() => {
     const fetchSuggestedUsers = async () => {
       try {
         const {data} = await axiosPrivate.get('/friend/suggestions')
-        console.log(data?.data)
+        // console.log(data?.data)
         setSuggestedUsers(data?.data)
       } catch (error) {
-        console.log(error)
+        console.error(error)
       }
     }
     fetchSuggestedUsers()
   }, [])
-  
-
-  console.log("🤑🤑🤑", friendRequestsReceived)
-  console.log("😨😨😨", suggestedUsers)
 
   return (
     <>

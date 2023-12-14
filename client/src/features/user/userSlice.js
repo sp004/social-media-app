@@ -13,7 +13,6 @@ const initialState = {
 
 //get user profile
 export const fetchUserProfile = createAsyncThunk("user/fetchUserProfile", async (username, thunkApi) => {
-    console.log(username)
     try {
         return await getUserProfile(username)
     } catch (error) {
@@ -27,20 +26,10 @@ export const fetchUnblockedUsers = createAsyncThunk("user/fetchUnblockedUsers", 
     try {
         return await getUnblockedUsers()
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         return thunkApi.rejectWithValue(error?.response?.data?.message)
     }
 })
-
-//get all blocked users
-// export const fetchBlockedUsers = createAsyncThunk("user/fetchBlockedUsers", async (_, thunkApi) => {
-//     try {
-//         return await getBlockedUsers()
-//     } catch (error) {
-//         console.log(error)
-//         return thunkApi.rejectWithValue(error?.response?.data?.message)
-//     }
-// })
 
 const userSlice = createSlice({
   name: 'user',
@@ -61,14 +50,14 @@ const userSlice = createSlice({
             state.isLoading = true
         })
         .addCase(fetchUserProfile.fulfilled, (state, {payload}) => {
-            console.log(payload.data)
+            // console.log(payload.data)
             state.isLoading = false 
             state.isSuccess = true
             state.user = payload.data
             state.message = payload.message
         })
         .addCase(fetchUserProfile.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload
@@ -79,36 +68,18 @@ const userSlice = createSlice({
             state.isLoading = true
         })
         .addCase(fetchUnblockedUsers.fulfilled, (state, {payload}) => {
-            console.log(payload.data)
+            // console.log(payload.data)
             state.isLoading = false 
             state.isSuccess = true
             state.unblockedUsers = payload.data
             state.message = payload.message
         })
         .addCase(fetchUnblockedUsers.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload
         })
-
-        //get all blocked users
-        // .addCase(fetchBlockedUsers.pending, (state) => {
-        //     state.isLoading = true
-        // })
-        // .addCase(fetchBlockedUsers.fulfilled, (state, {payload}) => {
-        //     // console.log(payload.data)
-        //     state.isLoading = false 
-        //     state.isSuccess = true
-        //     state.blockedUsers = payload.data
-        //     state.message = payload.message
-        // })
-        // .addCase(fetchBlockedUsers.rejected, (state, {payload}) => {
-        //     console.log(payload)
-        //     state.isLoading = false 
-        //     state.isSuccess = false
-        //     state.message = payload.message
-        // })
   },
 });
 

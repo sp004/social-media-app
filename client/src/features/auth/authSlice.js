@@ -15,7 +15,7 @@ export const userRegister = createAsyncThunk("auth/authregister", async (user, t
     try {
         return await registerUser(user)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         const message = error?.response?.data?.message    
         return thunkApi.rejectWithValue(message)
     }
@@ -36,7 +36,7 @@ export const sendVerificationEmail = createAsyncThunk("auth/sendVerificationEmai
     try {
         return await verificationEmail()
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         const message = (error.response && error.response.data && error.response.data.message)
         return thunkApi.rejectWithValue(message)
     }
@@ -57,7 +57,7 @@ export const userVerification = createAsyncThunk("auth/userVerification", async 
     try {
         return await verifyUser(token)
     } catch (error) {
-        console.log(error)
+        // console.log(error)
         const message = (error.response && error.response.data && error.response.data.errMsg)
         return rejectWithValue(message)
     }
@@ -106,7 +106,7 @@ const authSlice = createSlice({
             state.accessToken = payload.accessToken
         })
         .addCase(userRegister.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.currentUser = null 
             state.isSuccess = false
@@ -127,7 +127,7 @@ const authSlice = createSlice({
             state.accessToken = payload.accessToken
         })
         .addCase(userLogin.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.currentUser = null 
             state.isLoggedIn = false
@@ -149,7 +149,7 @@ const authSlice = createSlice({
             state.accessToken = null
         })
         .addCase(logout.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload
@@ -164,7 +164,7 @@ const authSlice = createSlice({
             state.message = payload.message
         })
         .addCase(sendVerificationEmail.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload.message
@@ -181,7 +181,7 @@ const authSlice = createSlice({
             state.message = payload.message
         })
         .addCase(userVerification.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload.message
@@ -192,14 +192,14 @@ const authSlice = createSlice({
             state.isLoading = true
         })
         .addCase(updateUser.fulfilled, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = true
             state.currentUser = payload.user
             state.message = payload.message
         })
         .addCase(updateUser.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload
@@ -210,7 +210,7 @@ const authSlice = createSlice({
             state.isLoading = true
         })
         .addCase(deleteUser.fulfilled, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = true
             state.currentUser = null
@@ -219,7 +219,7 @@ const authSlice = createSlice({
             state.message = payload.message
         })
         .addCase(deleteUser.rejected, (state, {payload}) => {
-            console.log(payload)
+            // console.log(payload)
             state.isLoading = false 
             state.isSuccess = false
             state.message = payload

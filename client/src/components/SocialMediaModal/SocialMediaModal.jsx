@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { CloseIcon, Modal, ModalContent, ModalOverlay } from '../CreatePostModal/styles'
-import { FacebookIcon, FacebookShareButton, FacebookShareCount, LinkedinIcon, LinkedinShareButton, WhatsappIcon, WhatsappShareButton } from 'react-share'
-import ShareButton from 'react-share/lib/ShareButton'
+import { FacebookIcon, FacebookShareButton, LinkedinIcon, LinkedinShareButton, WhatsappIcon, WhatsappShareButton } from 'react-share'
 import styled, { css } from 'styled-components'
-import { useLocation } from 'react-router-dom'
 import { borderedButton } from '../../styles/variables'
 
 const ShareContainer = styled.div`

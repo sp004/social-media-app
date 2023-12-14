@@ -93,7 +93,7 @@ const UpdateButton = styled.button`
 `
 
 const UserProfile = ({auth}) => {
-  document.title = 'MeetChat - Edit Profile'
+  document.title = 'MeetFrends - Edit Profile'
   const {currentUser, message: msg, isSuccess, isLoading} = auth || {}
 
   const [status, setStatus] = useState(currentUser?.status ?? '')

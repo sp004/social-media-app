@@ -19,15 +19,15 @@ const CoverPicture = ({isMyProfile, currentUser}) => {
     
             // save image to cloudinary
             const res = await axios.post(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_APP_CLOUD_NAME}/image/upload?folder=${import.meta.env.VITE_APP_CLOUDINARY_FOLDER}/${import.meta.env.VITE_APP_CLOUDINARY_COVER_PIC_FOLDER}`, image);
-            console.log(res?.data)
-            console.log(res.data.url)
+            // console.log(res?.data)
+            // console.log(res.data.url)
     
             //save to db
             await dispatch(updateUser({...currentUser, coverPic: res?.data?.url?.toString()}))
 
           } catch (error) {
-            console.log(error) //cloudinary error 
-            //console.log(error?.response?.data?.error?.message) // TODO: ignore this error, no need to show it
+            console.error(error) //cloudinary error 
+            //console.log(error?.response?.data?.error?.message) 
           }
         }
         uploadCoverPicHandler()

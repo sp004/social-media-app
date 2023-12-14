@@ -22,13 +22,12 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 
 const Login = ({ setVisibility }) => {
-  document.title = 'MeetChat - Login'
+  document.title = 'MeetFrends - Login'
   const [showPassword, setShowPassword] = useState(false)
   const [showCredential, setShowCredential] = useState(false)
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -47,7 +46,7 @@ const Login = ({ setVisibility }) => {
     await dispatch(reset())
   }, [dispatch]);
 
-  //! need to check
+  
   useEffect(() => {
     if (message === 'Login successful') {
       navigate("/feed");

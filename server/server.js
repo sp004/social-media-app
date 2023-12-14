@@ -25,7 +25,7 @@ app.use(helmet())
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: [process.env.CLIENT_URL],
     credentials: true,
   }))
 
@@ -66,7 +66,8 @@ mongoose.connection.on('open', () => {
 const io = new Server(httpServer, { 
     //pingTimeout: 60000, //connection will be closed afted 60s if not used
     cors: {
-        origin: ["http://localhost:3000"]
+        origin: [process.env.CLIENT_URL],
+        credentials: true,
     }
 });
 
@@ -86,29 +87,26 @@ const getUser = (userId) => {
   };
 
 io.on("connection", (socket) => {
-    console.log("connected to socket.io")
+    // console.log("connected to socket.io")
 
     socket.on("setup", (user) => {
-        console.log(user?.id, "Connected")
-        console.log(socket.id, "Socket")
         addUser(user?.id, socket?.id, user?.fullname)
-        console.log("users", users)
+        // console.log("users", users)
         io.emit("online", users)
     })
 
     socket.on("message", (messageReceived) => {
-        console.log(messageReceived)
         const receiver = getUser(messageReceived?.receiver)
-        console.log(receiver)
+        // console.log(receiver)
         // let conversation = messageReceived.conversationId
         io.to(receiver?.socketId).emit("sentMessage", messageReceived)
     })
 
     socket.on("sentNotification", (data) => {
-        console.log("data", data)
+        // console.log("data", data)
         const receiver = getUser(data?.receiver)
         const sender = getUser(data?.sender)
-        console.log(receiver, sender?.fullname)
+        // console.log(receiver, sender?.fullname)
         io.to(receiver?.socketId).emit("getNotification", {
             sender: sender?.fullname, 
             type: data?.type,
@@ -117,9 +115,9 @@ io.on("connection", (socket) => {
     })
     
     socket.on("disconnect", () => {
-        console.log("User left")
+        // console.log("User left")
         removeUser(socket.id)
-        console.log("users", users)
+        // console.log("users", users)
         io.emit("online", users)
     })
 })

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Counter, Menu, Menus } from '../Navbar/styles'
 import { NavLink } from 'react-router-dom'
 import { Avatar } from '../CreatePost/styles'
@@ -17,21 +17,12 @@ const NavbarMenu = ({openMenuBox, setOpenMenuBox}) => {
 
     useEffect(() => {
       socket?.on("getNotification", (data) => {
-        console.log("data: " + data)
         setNotifications(prev => [...prev, data])
       })
     }, [socket])
-    console.log("notiiiiiiiiiiiiiiiiii", notifications)
 
   return (
     <Menus>
-      {/* {navItems.map((navItem, index) => (
-        <Menu to={`/${navItem.link}`} key={index} activeclassname="activeLink">
-            <navItem.Icon />
-            <Counter>2</Counter>
-        </Menu>
-      ))} */}
-
         <Menu to={`/feed`} activeclassname="activeLink">
           <AiFillHome />
         </Menu>

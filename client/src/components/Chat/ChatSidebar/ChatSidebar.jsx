@@ -6,11 +6,9 @@ import { useSelector } from "react-redux";
 import { ChatContext } from "../../../context/ChatContext";
 import { GrFormClose } from "react-icons/gr";
 import { flexBetween, style } from "../../../styles/variables";
-import { PuffLoader } from "react-spinners";
 import moment from "moment";
 import { device } from "../../../styles/responsive";
 import { useLocation } from "react-router-dom";
-import { IoTerminal } from "react-icons/io5";
 
 const ChatSidebarContainer = styled.div`
   flex: 0.25;
@@ -98,9 +96,9 @@ const ChatSidebar = () => {
   const [searchResult, setSearchResult] = useState([]);
   // const [allConversations, setAllConversations] = useState([])
   // const [selectedConversation, setSelectedConversation] = useState({})
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [loading, setLoading] = useState(false)
-  const [blockedList, setBlockedList] = useState([])
+  // const [blockedList, setBlockedList] = useState([])
   const { currentUser } = useSelector((state) => state.auth);
   const { unblockedUsers } = useSelector((state) => state.user); 
   const {
@@ -113,16 +111,6 @@ const ChatSidebar = () => {
     setSelectedConversation,
   } = useContext(ChatContext);
   const {state: user} = useLocation()
-  console.log("🤐", user)
-
-  // useEffect(() => {
-  //   const fetchBlckedUser = async () => {
-  //     const {data} = await axiosPrivate.get('/friend/blockedUsers')
-  //     setBlockedList(data?.data)
-  //   }
-  //   fetchBlckedUser()
-  // }, [conversation])
-
 
   //fetch all conversations
   useEffect(() => {
@@ -135,11 +123,11 @@ const ChatSidebar = () => {
         setAllConversations(
           data?.data?.map((item) => {
             const [user] = item?.users?.filter(user => user._id !== currentUser._id);
-            console.log("✔✔✔", user)
-            console.log(unblockedUsers)
+            // console.log("✔✔✔", user)
+            // console.log(unblockedUsers)
             const checkStatus = unblockedUsers?.some(item => item?._id === user?._id)
             const isBlocked = unblockedUsers?.filter(item => item?._id === user?._id)[0]?.isBlocked
-            console.log(checkStatus, isBlocked) 
+            // console.log(checkStatus, isBlocked) 
             return {
               user,
               blocked: !checkStatus,
@@ -150,7 +138,7 @@ const ChatSidebar = () => {
         );
         // setAllConversations(data?.data?.map(con => con?.users.filter(item => item._id !== currentUser._id)))
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
       // setLoading(false)
     };
@@ -160,21 +148,16 @@ const ChatSidebar = () => {
 
   
   // useEffect(() => {
-  //   console.log("😲😲😲")
   //   if(user && Object.keys(user).length > 0 && !allConversations?.some(conversation => conversation.user._id === user._id)){
-  //     console.log("🙏🏻🙏🏻🙏🏻 conversation not matched***********");
   //     axiosPrivate.post('/conversation/create', {
   //       senderId: currentUser?._id,
   //       receiverId: user?._id
   //     })
   //     .then(response => {
   //       const data = response.data;
-  //       console.log("🤬🤬🤬", currentUser, user, data?.data);
   //       const matched = allConversations?.filter(conversation => {
-  //         console.log(conversation?._id, " xxxxxx ", data?.data?._id)
   //         return conversation._id === data?.data?._id
   //       })
-  //       console.log("❤❤❤ ----->", data.data, matched);
   //       setConversation(matched);
   //     })
   //     .catch(error => {
@@ -184,13 +167,7 @@ const ChatSidebar = () => {
   //   }
   // }, [allConversations, user])
 
-
-  console.log("🥰🥰🥰 ==>", allConversations)
-  console.log("converation ===>", conversation);
-
   useEffect(() => {
-    console.log(conversation, "inside fetch chats ==================");
-
     const loadChat = async () => {
       if (!conversation?._id) {
         return;
@@ -199,11 +176,10 @@ const ChatSidebar = () => {
           const { data } = await axiosPrivate.get(
             `/message/getMessage/${conversation?._id}`
           );
-          console.log(data?.data);
           setChats(data.data);
           // setChats((prev) => [...prev, data?.data])
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     };
@@ -233,7 +209,6 @@ const ChatSidebar = () => {
       )
     );
   };
-  console.log("/**/", search)
 
   return (
     <ChatSidebarContainer isSelected={Object.keys(conversation).length > 0 ? true : false}>

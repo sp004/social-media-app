@@ -22,18 +22,18 @@ const BookmarkContainer = styled.div`
 const Bookmarks = () => {
   const [bookmarkedPosts, setBookmarkedPosts] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  document.title = 'MeetChat - Bookmarks'
+  document.title = 'MeetFrends - Bookmarks'
 
   useEffect(() => {
     const fetchBookmarkedPosts = async () => {
       setIsLoading(true)
       try {
         const {data} = await axiosPrivate.get(`/bookmark/fetch`)
-        console.log("++++++++++++", data?.data?.map(item => item.postId).flat())
+        // console.log(data?.data?.map(item => item.postId).flat())
         setBookmarkedPosts(data?.data?.map(item => item.postId).flat())
         setIsLoading(false)
       } catch (error) {
-        console.log(error)
+        // console.error(error)
         setIsLoading(false)
       }
     }

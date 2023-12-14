@@ -27,7 +27,7 @@ const BlockedUsers = styled.div`
 `
 
 const BlockedAccounts = () => {
-  document.title = 'MeetChat - Blocked Accounts'
+  document.title = 'MeetFrends - Blocked Accounts'
   // const [blockedUsers, setBlockedUsers] = useState([])
   const navigate = useNavigate()
 

@@ -14,18 +14,8 @@ const ChatContainer = styled.section`
 `
 
 const Chat = () => {
-  // <Meta title={"MeetChat - Chat"} />
-  document.title = 'MeetChat - Chat'
-  // const {state: user} = useLocation()
-  // const [selectedConversation, setSelectedConversation] = useState()
-  // const [reFetch, setReFetch] = useState(true)
-  // const {setConversation} = useContext(ChatContext)
-  // const socket = io('http://localhost:8000')
-  // console.log(socket)
-
-  // useEffect(() => {
-  //   setConversation({})
-  // }, [])
+  // <Meta title={"MeetFrends - Chat"} />
+  document.title = 'MeetFrends - Chat'
 
   return (
     <ChatContainer>
