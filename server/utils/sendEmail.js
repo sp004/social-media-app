@@ -20,7 +20,7 @@ export const sendEmail = async (subject, to, from, replyTo, template, name, link
             partialsDir: path.resolve("./views"),
             defaultLayout: false
         },
-        viewPath: path.resolve("./views"),
+        viewPath: path.resolve("views"),
         extName: ".handlebars",
     }
 
@@ -43,8 +43,10 @@ export const sendEmail = async (subject, to, from, replyTo, template, name, link
     transporter.sendMail(options, (err, info) => {
         if(err){
             console.log(err)
+            return err 
         }else{
             console.log(info)
+            return info
         }
     })
 }
