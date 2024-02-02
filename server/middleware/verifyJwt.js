@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 //whether the user is signed in or not
 export const verifyJWT = async (req, _, next) => {
   const authHeader = req.headers?.authorization;
-  // console.log(authHeader)
+  console.log(authHeader)
   try {
     if (authHeader?.startsWith('Bearer ')){
       const token = authHeader.split(' ')[1];

@@ -14,6 +14,7 @@ const SocketProvider = ({ children }) => {
     // console.log("connecting to socket...");
     setSocket(io(import.meta.env.VITE_APP_SOCKET_URL));
   }, []);
+  console.log(socket)
 
   return (
     <SocketContext.Provider value={{socket, onlineUsers, setOnlineUsers, notifications, setNotifications}}>

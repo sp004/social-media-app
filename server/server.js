@@ -57,10 +57,18 @@ app.use((err, req, res, next) => {
     res.status(errStatus).json({status: 'error', message: errMsg, stack})
 })
 
-mongoose.connection.on('open', () => {
-    console.log("Connection established")
-    httpServer.listen(port, () => console.log(`meetfrend server listening on port ${port}!`))
-})
+// mongoose.connection.on('open', () => {
+//     console.log("Connection established")
+//     httpServer.listen(port, () => console.log(`meetfrend server listening on port ${port}!`))
+// })
+
+    httpServer.listen(port, () => {
+        console.log(`meetfrend server listening on port ${port}!`);
+    });
+
+    mongoose.connection.on('open', () => {
+        console.log("Connection established");
+    });
 
 //--------- initialize Socket ----------------
 const io = new Server(httpServer, { 
@@ -174,12 +182,3 @@ io.on("connection", (socket) => {
 //         socket.broadcast.emit("get-online-users", onlineUsers)
 //     })
 // });
-
-
-// const fakeDelay = (promise) => {
-//     return new Promise(resolve => {
-//         setTimeout(resolve, 3000);
-//     }).then(() => promise)
-// }
-
-// const Comment = lazy(() => fakeDelay(import('./pasges/Comment.js')))

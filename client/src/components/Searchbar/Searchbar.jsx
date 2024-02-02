@@ -153,7 +153,7 @@ const Searchbar = ({users}) => {
     setSuggestions([])
   }
 
-  // console.log(suggestions)
+  console.log(suggestions)
   
   return (
     <SearchBarContainer>

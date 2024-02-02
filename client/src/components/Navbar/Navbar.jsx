@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   HamburgerMenu,
   Logo,
@@ -17,18 +16,19 @@ import SideMenubar from "../SideMenubar/SideMenubar";
 const Navbar = ({openMenuBox, setOpenMenuBox}) => {
   const [openHamburgerMenu, setOpenHamburgerMenu] = useState(false)
   const dispatch = useDispatch();
-  const {accessToken, message, currentUser} = useSelector(state => state.auth)
+  const {currentUser} = useSelector(state => state.auth)
   const {unblockedUsers} = useSelector(state => state.user)
-  const navigate = useNavigate()
 
-  const [query, setQuery] = useState('');
-  const [searchableUsers, setSearchableUsers] = useState([]);
-
+  // const [query, setQuery] = useState('');
+  // const [searchableUsers, setSearchableUsers] = useState([]);
+console.log("cu == ", currentUser)
   useEffect(() => {
-    dispatch(fetchUnblockedUsers())
+    setTimeout(() => {
+      dispatch(fetchUnblockedUsers())
+    }, 2000); 
   }, [])
   
-  // console.log(unblockedUsers)
+  console.log("unblocked users ==>", unblockedUsers)
 
   return (
     <NavContainer>

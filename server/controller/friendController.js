@@ -296,13 +296,13 @@ export const getUnblockedUsers = asyncHandler(async(req, res, next) => {
     const unblockedUsersData = await Promise.all(unblockedUsers?.map(async (user) => {
         const users = await User.findById(user?.userId).select("fullname profilePic username isDeactivated"); 
         const isBlocked = await checkIsBlocked(req, user?.userId)
-        // console.log(users)
+        console.log("isBlocked ", isBlocked)
         return {
             isBlocked,
             ...users?._doc
         }
     }))
-
+console.log(unblockedUsersData[0])
     res.status(200).json({data: unblockedUsersData?.filter(Boolean)})
 })
 
@@ -336,7 +336,7 @@ export const getSuggestedUsers = asyncHandler(async(req, res, next) => {
         }
     }))
 
-    res.status(200).json({data: suggestedUsersInfo?.filter(user => !user.isBlocked)})
+    res.status(200).json({data: suggestedUsersInfo?.filter(user => !user?.isBlocked)})
 })
 
 // get all suggested users (not present in any lists) => add friend, block
