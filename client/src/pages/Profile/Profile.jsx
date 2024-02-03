@@ -15,12 +15,10 @@ const Profile = () => {
   
   const username = useLocation().pathname.split("/")[2];
   const auth = useSelector(state => state.auth)
-  const {message, isSuccess} = useSelector(state => state.user)
   const {userPosts} = useSelector(state => state.post)
 
   const fetchUserProfile = async () => {
     const {data} = await axiosPrivate.get(`/user/profile/${username}`)
-    console.log("data ******",data)
     return data?.data
   }
 
@@ -36,16 +34,12 @@ const Profile = () => {
     dispatch(resetUserPosts())
     dispatch(fetchUserPosts(user?._id))
   }, [user?._id]);
-  // console.log("user ===>", user)
 
   // useEffect(() => {
   //   if(auth?.currentUser?.username === username) return
   //   console.log(user?._id)
   //   user?._id && dispatch(fetchMutualFriends(user?._id))
   // }, [user, username])
-
-  console.log("⭐", auth)
-  console.log("🥱", user)
 
   return (
     <>

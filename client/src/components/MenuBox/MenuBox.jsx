@@ -79,9 +79,10 @@ const MenuBox = ({setOpenMenuBox, username}) => {
 
   return (
     <MenuContainer onMouseLeave={closeMenuBox}>
-      <MenuItems>
-        <Menu to={`/profile/${username}`} onClick={closeMenuBox}>View Profile</Menu>
-        <Menu to={`/settings`} onClick={closeMenuBox}>Settings</Menu>
+      <MenuItems onClick={closeMenuBox}>
+        <Menu to={`/profile/${username}`}>View Profile</Menu>
+        <Menu to={`/settings`}>Settings</Menu>
+        <Menu to={`/bookmarks`}>Bookmarks</Menu>
         <Menu onClick={logoutHandler}>Logout</Menu>
       </MenuItems>
     </MenuContainer>

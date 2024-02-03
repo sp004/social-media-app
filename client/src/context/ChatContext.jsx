@@ -9,6 +9,7 @@ const ChatContextProvider = ({children}) => {
     const [conversation, setConversation] = useState({}) //selected conversation
     const [selectedConversation, setSelectedConversation] = useState() 
 
+    /*** NOT IMPLEMENTED */
     const removeConversation = async (conversationId) => {
         try {
             // const {data} = await axiosPrivate.delete(`/`)

@@ -152,8 +152,6 @@ const Searchbar = ({users}) => {
     setExpandContainer(false)
     setSuggestions([])
   }
-
-  console.log(suggestions)
   
   return (
     <SearchBarContainer>

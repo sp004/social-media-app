@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 import { flexCol } from '../../styles/variables'
 import { RxCross1 } from 'react-icons/rx'
@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { logout, reset } from '../../features/auth/authSlice'
 import { resetFriends } from '../../features/friend/friendSlice'
 import { device } from '../../styles/responsive'
+import { sidebarItems } from '../../utils'
 
 const SideMenuContainer = styled.aside`
     display: hidden;
@@ -41,7 +42,7 @@ const SideMenus = styled.ul`
     justify-content: flex-start;
 `
 
-const SideMenu = styled(Link)`
+const SideMenu = styled(NavLink)`
     padding: 12px 16px;
     position: relative;
     width: 100%;
@@ -81,9 +82,10 @@ const SideMenubar = ({setOpenHamburgerMenu, open}) => {
   return (
     <SideMenuContainer open={open}>
         <CrossIcon onClick={() => setOpenHamburgerMenu(prev => !prev)} />
-        <SideMenus>
-            <SideMenu to={`/profile`} onClick={() => setOpenHamburgerMenu(false)}>View Profile</SideMenu>
-            <SideMenu to={`/settings`} onClick={() => setOpenHamburgerMenu(false)}>Settings</SideMenu>
+        <SideMenus onClick={() => setOpenHamburgerMenu(false)}>
+            {sidebarItems.map(item => (  
+                <SideMenu key={item.id} to={`/${item.link}`}>{item.text}</SideMenu>
+            ))}
             <SideMenu onClick={logoutHandler}>Logout</SideMenu>
         </SideMenus>
     </SideMenuContainer>

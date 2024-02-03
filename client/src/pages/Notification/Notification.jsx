@@ -62,6 +62,7 @@ const Notification = () => {
   document.title = 'MeetFrends - Notification'
   const {notifications} = useContext(SocketContext)
   let content = ''
+  console.log(notifications)
 
   const displayNotification = (n)  => {
     if(n?.type === 'like'){
