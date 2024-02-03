@@ -91,6 +91,7 @@ const removeUser = (socketId) => {
 } 
 
 const getUser = (userId) => {
+    // console.log("users", users)
     return users.find((user) => user.userId === userId);
   };
 
@@ -99,7 +100,7 @@ io.on("connection", (socket) => {
 
     socket.on("setup", (user) => {
         addUser(user?.id, socket?.id, user?.fullname)
-        // console.log("users", users)
+        // console.log("users ==>", users)
         io.emit("online", users)
     })
 
@@ -114,7 +115,7 @@ io.on("connection", (socket) => {
         // console.log("data", data)
         const receiver = getUser(data?.receiver)
         const sender = getUser(data?.sender)
-        // console.log(receiver, sender?.fullname)
+        // console.log(receiver, "==", sender)
         io.to(receiver?.socketId).emit("getNotification", {
             sender: sender?.fullname, 
             type: data?.type,
