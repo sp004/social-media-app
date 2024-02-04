@@ -21,10 +21,12 @@ const ChatSidebarContainer = styled.div`
 
   @media ${device.tablet}{ 
     flex: 0.3;
+    
   }
 
   @media ${device.tabletS}{ 
     flex: ${(props) => props.isSelected ? 0 : 1};
+    height: calc(100vh - 4rem);
   }
 `;
 

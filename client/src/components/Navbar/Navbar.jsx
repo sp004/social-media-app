@@ -21,14 +21,12 @@ const Navbar = ({openMenuBox, setOpenMenuBox}) => {
 
   // const [query, setQuery] = useState('');
   // const [searchableUsers, setSearchableUsers] = useState([]);
-console.log("cu == ", currentUser)
+
   useEffect(() => {
     setTimeout(() => {
       dispatch(fetchUnblockedUsers())
     }, 2000); 
   }, [])
-  
-  console.log("unblocked users ==>", unblockedUsers)
 
   return (
     <NavContainer>
